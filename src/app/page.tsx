@@ -10,7 +10,7 @@ export default function Home() {
       <h1 className="text-2xl">Featured Products</h1>
     <ProductList />
       </div>
-      <div className="mt-24 px-4 md:px-8 lg:px-144 xl:px-30 2xl:px-58">
+      <div className="mt-24 px-4 md:px-8 lg:px-14 xl:px-30 2xl:px-58">
         <h1 className="text-2xl">Categories</h1>        
     <CategoryList />
       </div>

@@ -4,7 +4,7 @@ import Image from "next/image";
 
 function CategoryList() {
   return (
-    <div className="px-4 overflow-x-scroll scrollbar-hide">
+    <div className="px-4 overflow-x-scroll scrollbar-hide mt-8">
       <div className="flex gap-4 md:gap-8">
         <Link
           href="/"
