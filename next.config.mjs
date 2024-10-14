@@ -1,13 +1,22 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-    images:{
-        remotePatterns: [
-            {
-                protocol:"https",
-                hostname:"images.pexels.com"
-            }
-        ]
-    }
-};
-
-export default nextConfig;
+const nextConfig = {  
+    webpack: (config, { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }) => {
+      return config;
+    },
+    images: {
+      remotePatterns: [
+        {
+          protocol: "https",
+          hostname: "images.pexels.com",
+        },
+        {
+          protocol: "https",
+          hostname: "cdn.sanity.io",
+          pathname: "/images/**"
+        }
+      ],
+    },
+  };
+  
+  export default nextConfig;
+  
