@@ -1,5 +1,7 @@
+
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
+import { CartContext } from "@/app/context/CartContext";
 import Menu from "./Menu";
 import SearchBar from "./SearchBar";
 import NavIcons from "./NavIcons";
@@ -11,7 +13,6 @@ const nunitoSans = Nunito_Sans({
   subsets: ['latin'],
 });
 function Navbar() {
-
   
   return (
     <div className="h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-58 relative">
