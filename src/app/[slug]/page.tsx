@@ -34,10 +34,13 @@ async function Page({ params }: { params: { slug: string } }) {
         {/* TEXTS */}
         <div className="w-full pl-12 lg:w-1/2 flex flex-col gap-6">
           <h1 className="text-4xl font-medium">{product.name}</h1>
-          <p className="text-gray-700">{product.description}</p>
-
+          <p className="text-gray-900">{product.description}</p>
+          <div className="flex flex-col gap-2">
+            <h2 className="font-medium text-2xl">${product.price}</h2>
+            <h4 className="text-gray-500">Tax included. <br /> Shipping calculated at checkout.</h4>
+          </div>
           {/* Display category names */}
-          <div className="text-gray-700  justify-between items-center ">
+          {/* <div className="text-gray-700  justify-between items-center ">
             {product.categories.map((category: any) => (
               <span
                 key={category._id}
@@ -47,15 +50,13 @@ async function Page({ params }: { params: { slug: string } }) {
                 <h2>{category.name}</h2>
               </span>
             ))}
-          </div>
+          </div> */}
 
           <div className="h-[2px] bg-gray-100" />
-          <div className="flex items-center gap-4">
-            <h2 className="font-medium text-2xl">${product.price}</h2>
-          </div>
+       
             <div className=" flex flex-col">
               <Add/>
-              <button className="self-end mt-8 rounded-md bg-gray-300 w-64 overflow-hidden h-8">Add to cart</button>
+              <button className=" self-center mt-8 rounded-md bg-orange-500/80 w-72 overflow-hidden h-10">Add to cart</button>
             </div>
           <div className="h-[2px] bg-gray-100" />
           {product.additionalInfoSections?.map((section: any) => (
