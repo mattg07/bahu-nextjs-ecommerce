@@ -29,7 +29,7 @@ function CartModal() {
                   src={urlFor(product.images[1]).url()}
                 />
                 <h1 className="">Quantity:</h1>
-                <h1>{qty}</h1>
+                <h1>{product.quantity}</h1>
               </div>
             </div>
           ))}

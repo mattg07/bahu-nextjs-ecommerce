@@ -17,7 +17,7 @@ function NavIcons({}) {
     }
     setIsProfileOpen((prev) => !prev);
   };
-  const {qty, cartItems}:any = useContext(CartContext)
+  const {qty, cartItems, totalQty}:any = useContext(CartContext)
   return (
     <div className="flex items-center justify-between gap-4 xl:gap-6 relative">
       <Image
@@ -50,7 +50,7 @@ function NavIcons({}) {
           alt="cart"
           onClick={() => setIsCartOpen((prev) => !prev)}
         />
-        <div className="absolute -top-4 -right-4 w-6 h-6 bg-baku rounded-full text-white text-sm flex items-center justify-center">{cartItems.length}</div>
+        <div className="absolute -top-4 -right-4 w-6 h-6 bg-baku rounded-full text-white text-sm flex items-center justify-center">{totalQty}</div>
       </div>
       {isCartOpen && <CartModal />}
     </div>

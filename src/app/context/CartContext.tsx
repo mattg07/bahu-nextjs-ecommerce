@@ -7,7 +7,7 @@ export const CartProvider = ({ children }: any) => {
   const [showCart, setShowCart] = useState(false);
   const [qty, setQty] = useState(1);
   const [cartItems, setCartItems] = useState<any[]>([]);
-
+  const [totalQty, setTotalQty] = useState<number>(0);
   const incQty = () => {
     setQty((prevQty) => prevQty + 1);
   };
@@ -19,14 +19,30 @@ export const CartProvider = ({ children }: any) => {
     });
   };
 
+
   const addProduct = (product: any, quantity: number) => {
-    setCartItems([...cartItems, { ...product, quantity }]);
-    console.log("Product added:", { ...product, quantity });
-    console.log("Updated cart items:", cartItems);
+    setTotalQty((prev) => prev+quantity);
+    const isInCart = cartItems.find((item: any) =>item._id === product._id)  
+
+    if (isInCart) {
+      const updatedCartItems = cartItems.map((cartProduct:any) => {
+        if(cartProduct._id === product._id)
+          return {
+        ...cartProduct,
+      quantity: cartProduct.quantity + quantity}
+      })
+      setCartItems(updatedCartItems)
+    }
+    else{
+      product.quantity = quantity;
+      setCartItems([...cartItems, { ...product }]);
+      console.log("Updated cart items:", cartItems);
+    }
+
   };
 
   return (
-    <CartContext.Provider value={{ showCart, setShowCart, qty, incQty, decQty, cartItems, addProduct }}>
+    <CartContext.Provider value={{ showCart, setShowCart, qty, incQty, decQty, cartItems, addProduct, totalQty }}>
       <div>{children}</div>
     </CartContext.Provider>
   );
