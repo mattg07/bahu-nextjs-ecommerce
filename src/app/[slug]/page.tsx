@@ -7,6 +7,7 @@ import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import ProductImages from "@/components/ProductImages";
 import Add from "@/components/Add";
+
 async function Page({ params }: { params: { slug: string } }) {
   const product = await client.fetch(
     `*[_type == "product" && slug.current == $slug][0] {
@@ -40,24 +41,17 @@ async function Page({ params }: { params: { slug: string } }) {
             <h4 className="text-gray-500">Tax included. <br /> Shipping calculated at checkout.</h4>
           </div>
           {/* Display category names */}
-          {/* <div className="text-gray-700  justify-between items-center ">
+          <div className="text-gray-700">
             {product.categories.map((category: any) => (
-              <span
-                key={category._id}
-                className="mr-2 flex justify-between items-center"
-              >
-                <h2>Category</h2>
-                <h2>{category.name}</h2>
+              <span key={category._id} className="mr-2">
+                <h2>Category: {category.name}</h2>
               </span>
             ))}
-          </div> */}
-
+          </div>
           <div className="h-[2px] bg-gray-100" />
-       
-            <div className=" flex flex-col">
-              <Add/>
-              <button className=" self-center mt-8 rounded-md bg-orange-500/80 w-72 overflow-hidden h-10">Add to cart</button>
-            </div>
+          <div className="flex flex-col">
+            <Add product={product} />
+          </div>
           <div className="h-[2px] bg-gray-100" />
           {product.additionalInfoSections?.map((section: any) => (
             <div className="text-sm" key={section.title}>
@@ -78,3 +72,4 @@ async function Page({ params }: { params: { slug: string } }) {
 }
 
 export default Page;
+  

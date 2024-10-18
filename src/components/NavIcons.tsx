@@ -2,10 +2,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import CartModal from "./CartModal";
+import { CartContext } from "@/app/context/CartContext";
 
-function NavIcons() {
+function NavIcons({}) {
   const [isProfileOpen, setIsProfileOpen] = useState<boolean>(false);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
   const router = useRouter();
@@ -16,7 +17,7 @@ function NavIcons() {
     }
     setIsProfileOpen((prev) => !prev);
   };
-
+  const {qty, cartItems}:any = useContext(CartContext)
   return (
     <div className="flex items-center justify-between gap-4 xl:gap-6 relative">
       <Image
@@ -49,7 +50,7 @@ function NavIcons() {
           alt="cart"
           onClick={() => setIsCartOpen((prev) => !prev)}
         />
-        <div className="absolute -top-4 -right-4 w-6 h-6 bg-baku rounded-full text-white text-sm flex items-center justify-center">2</div>
+        <div className="absolute -top-4 -right-4 w-6 h-6 bg-baku rounded-full text-white text-sm flex items-center justify-center">{cartItems.length}</div>
       </div>
       {isCartOpen && <CartModal />}
     </div>

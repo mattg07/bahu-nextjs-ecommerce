@@ -1,13 +1,12 @@
 "use client";
-import { div } from 'framer-motion/client'
 import React from 'react'
 import { CartContext } from '@/app/context/CartContext'
 import { useContext } from 'react'
-function Add() {
-const {qty, incQty, decQty}:any = useContext(CartContext)
+function Add({product} : {product:any}) {
+const {cartItems, addProduct, qty, incQty, decQty}:any = useContext(CartContext)
 
 
-
+console.log(cartItems)
 
   return (
     <div className=''>
@@ -23,6 +22,9 @@ const {qty, incQty, decQty}:any = useContext(CartContext)
         onClick={incQty}
         className='cursor-pointer plus font-semibold text-2xl'>+</span>
     </div>
+    <button
+        onClick={() => addProduct(product, qty)}
+        className=" self-center mt-8 rounded-md bg-orange-500/80 w-72 overflow-hidden h-10">Add to cart</button>
     </div>
   )
 }
