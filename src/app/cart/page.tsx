@@ -4,7 +4,9 @@ import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { product } from "@/sanity/schemas/productSchema";
 import { urlFor } from "@/sanity/lib/image";
+
 import Image from "next/image";
+import Link from "next/link";
 function Cart() {
   const {
     totalPrice,
@@ -18,9 +20,12 @@ function Cart() {
   return (
     <div className="border flex items-center justify-center py-5">
       <div className=" w-4/5">
-        <div className="flex flex-row justify-between ">
-          <h2 className="text-xl">Your cart</h2>
+        <div className="flex flex-row justify-between py-6">
+          <h2 className={`text-xl `}>Your cart</h2>
+         <Link href="/list">
+         
           <h2 className="text-large">Continue Shopping</h2>
+         </Link>
         </div>
         <hr className="h-0.5 opacity-30 bg-orange-500" />
         <table className="min-w-full">

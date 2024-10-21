@@ -4,7 +4,10 @@ import Link from "next/link";
 import { client } from '@/sanity/lib/client';
 import { groq } from 'next-sanity';
 import { urlFor } from '@/sanity/lib/image';
+import AddToCartBtn from './AddToCartBtn';
+
 async function ProductList() {
+
 
   const products = await client.fetch(groq`*[_type == "product"]`, {}, {next: {revalidate:3600}});
   console.log(products);
@@ -38,9 +41,8 @@ async function ProductList() {
             <span className="font-medium">{product.name}</span>
             <span className="font-semibold">${product.price}</span>
           </div>
-          <button className="rounded-2xl ring-1 ring-lama text-lama w-max py-2 px-4 text-xs hover:bg-lama hover:text-white">
-            Add to Cart
-          </button>
+          
+         <AddToCartBtn product={product} />
         </Link>
       ))}
     </div>
