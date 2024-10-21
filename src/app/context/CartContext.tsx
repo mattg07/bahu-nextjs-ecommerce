@@ -8,6 +8,7 @@ export const CartProvider = ({ children }: any) => {
   const [qty, setQty] = useState(1);
   const [cartItems, setCartItems] = useState<any[]>([]);
   const [totalQty, setTotalQty] = useState<number>(0);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
   const incQty = () => {
     setQty((prevQty) => prevQty + 1);
   };
@@ -23,6 +24,9 @@ export const CartProvider = ({ children }: any) => {
   const addProduct = (product: any, quantity: number) => {
     setTotalQty((prev) => prev+quantity);
     const isInCart = cartItems.find((item: any) =>item._id === product._id)  
+
+    setTotalPrice((prevTotalPrice ) => prevTotalPrice + product.price*quantity)
+
 
     if (isInCart) {
       const updatedCartItems = cartItems.map((cartProduct:any) => {
@@ -43,12 +47,10 @@ export const CartProvider = ({ children }: any) => {
 
 
   };
-  const totalPrice = {
-    
-  }
+
 
   return (
-    <CartContext.Provider value={{ showCart, setShowCart, qty, incQty, decQty, cartItems, addProduct, totalQty }}>
+    <CartContext.Provider value={{ totalPrice,  showCart, setShowCart, qty, incQty, decQty, cartItems, addProduct, totalQty }}>
       <div>{children}</div>
     </CartContext.Provider>
   );

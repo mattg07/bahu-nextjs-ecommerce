@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { urlFor } from "@/sanity/lib/image";
 import image from "next/image";
 function CartModal() {
-  const { cartItems, qty, showCart, setShowCart }: any =
+  const { totalPrice, cartItems, qty, showCart, setShowCart }: any =
     useContext(CartContext);
 console.log(cartItems)
   return (
@@ -51,7 +51,7 @@ console.log(cartItems)
           <div>
             <div className="flex items-center justify-between font-semibold">
               <span>Subtotal</span>
-              <span>49</span>
+              <span>{totalPrice}</span>
             </div>
             <p className="text-sm text-gray-500 mt-2 mb-2">
               Shipping and taxes are calculated at checkout
