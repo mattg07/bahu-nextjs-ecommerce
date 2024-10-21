@@ -38,8 +38,14 @@ export const CartProvider = ({ children }: any) => {
       setCartItems([...cartItems, { ...product }]);
       console.log("Updated cart items:", cartItems);
     }
+    setQty(1)
+    alert("product added to cart")
+
 
   };
+  const totalPrice = {
+    
+  }
 
   return (
     <CartContext.Provider value={{ showCart, setShowCart, qty, incQty, decQty, cartItems, addProduct, totalQty }}>

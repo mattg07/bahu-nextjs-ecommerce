@@ -9,7 +9,7 @@ import image from "next/image";
 function CartModal() {
   const { cartItems, qty, showCart, setShowCart }: any =
     useContext(CartContext);
-
+console.log(cartItems)
   return (
     <div className="w-max absolute p-4 rounded-md shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white top-12 right-0 flex flex-col gap-6 z-20 ">
       {!cartItems || cartItems.length === 0 ? (
@@ -19,18 +19,30 @@ function CartModal() {
           {cartItems.map((product: any, index: number) => (
             <div key={index} className="text-black flex flex-col ">
               <h1 className="overflow-hidden h-8">
+                <div className="flex flex-row items-center ">
+
                 {product.name}
+              <h1 className="text-sm ml-2 opacity-60">{product.price}$</h1>
+
+                </div>
               </h1>
-              <div className="flex flex-row  justify-between">
+              <div className="flex  flex-row justify-between">
                 <Image
                   alt="product"
                   width={90}
                   height={95}
                   src={urlFor(product.images[1]).url()}
                 />
-                <h1 className="">Quantity:</h1>
+                <div className="flex flex-col ">
+                  <div className="flex flex-row justify-around">
+
+                <h1 className="mr-2">Quantity:</h1>
                 <h1>{product.quantity}</h1>
+                  </div>
+                <h1>${product.quantity * product.price}</h1>
+                </div>
               </div>
+            
             </div>
           ))}
 
