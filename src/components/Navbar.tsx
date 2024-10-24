@@ -14,7 +14,8 @@ const nunitoSans = Nunito_Sans({
   subsets: ['latin'],
 });
 function Navbar() {
-
+  // const {data : Session} = useSession();
+  // console.log(Session)
   return (
     <div className="h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-58 relative">
       <div className="h-full flex items-center justify-between md:hidden">

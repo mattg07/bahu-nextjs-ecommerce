@@ -1,19 +1,42 @@
-import React from 'react';
+"use client";
+import React, { useEffect, useMemo } from 'react';
 import Image from "next/image";
 import Link from "next/link";
 import { client } from '@/sanity/lib/client';
 import { groq } from 'next-sanity';
 import { urlFor } from '@/sanity/lib/image';
 import AddToCartBtn from './AddToCartBtn';
+import { useStore } from '@/app/useStore';
 
-async function ProductList() {
+const ProductList = () => {
+  //Zustand store 
+  const searchTerm = useStore(state => state.searchTerm);
+  
+  const [products, setProducts] = React.useState<any[]>([]);
+  const [loading, setLoading] = React.useState(true);
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const fetchedProducts = await client.fetch(groq`*[_type == "product"]`, {}, { next: { revalidate: 36000 } });
+      setProducts(fetchedProducts);
+      setLoading(false);
+    };
 
-  const products = await client.fetch(groq`*[_type == "product"]`, {}, {next: {revalidate:3600}});
-  console.log(products);
+    fetchProducts();
+  }, []);
+
+  // MEMOIZING. 
+  const filteredProduct = useMemo(() => {
+    return products.filter((product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [products, searchTerm]);
+
+  if (loading) return <div>Loading...</div>;
+
   return (
     <div className="mt-12 flex gap-x-8 gap-y-16 justify-between flex-wrap">
-      {products.map((product : any) => (
+      {filteredProduct.map((product) => (
         <Link
           href={`/${product.slug.current}`}
           className="w-full flex flex-col gap-4 sm:w-[45%] lg:w-[22%]"
@@ -41,12 +64,11 @@ async function ProductList() {
             <span className="font-medium">{product.name}</span>
             <span className="font-semibold">${product.price}</span>
           </div>
-          
-         <AddToCartBtn product={product} />
+          <AddToCartBtn product={product} />
         </Link>
       ))}
     </div>
   );
-}
+};
 
 export default ProductList;
