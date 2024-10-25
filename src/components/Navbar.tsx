@@ -41,8 +41,7 @@ function Navbar() {
           <Link href={"/tamo"}> Deals</Link>
           <Link href={"/tamo"}> About</Link>
           <Link href={"/tamo"}> Contact</Link>
-          <Link href={"/tamo"}> Logout</Link>
-        </div>
+          </div>
         </div>
         <div className="w-2/3 xl:w-1/2 flex items-center justify-between gap-8">
           <SearchBar />
