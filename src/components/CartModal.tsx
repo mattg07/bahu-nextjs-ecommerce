@@ -7,9 +7,40 @@ import { useContext } from "react";
 import { urlFor } from "@/sanity/lib/image";
 import image from "next/image";
 function CartModal() {
+  interface ProductsToSend {
+    name: string;
+    price: number;
+    images: string[];
+    quantity: number;
+  }
   const { totalPrice, cartItems, qty, showCart, setShowCart }: any =
     useContext(CartContext);
-console.log(cartItems)
+  console.log(cartItems);
+
+  const handleCheckout = async () => {
+    const productsToSend: ProductsToSend[] = cartItems.map((product: any) => ({
+      name: product.name,
+      price: product.price,
+      images: product.images.map((image: string) => urlFor(image).url()),
+      quantity: product.quantity,
+    }));
+  
+    try {
+      const response = await fetch("http://localhost:3000/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application-json" },
+        body: JSON.stringify({ products: productsToSend }),
+      });
+      const data = await response.json();
+      if(data.url){
+        window.location.href = data.url
+      }
+    } catch (error) {
+      console.log("Error during checkout", error);
+      throw error;
+    }
+  };
+
   return (
     <div className="w-max absolute p-4 rounded-md shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white top-12 right-0 flex flex-col gap-6 z-20 ">
       {!cartItems || cartItems.length === 0 ? (
@@ -20,10 +51,8 @@ console.log(cartItems)
             <div key={index} className="text-black flex flex-col ">
               <h1 className="overflow-hidden h-8">
                 <div className="flex flex-row items-center ">
-
-                {product.name}
-              <h1 className="text-sm ml-2 opacity-60">{product.price}$</h1>
-
+                  {product.name}
+                  <h1 className="text-sm ml-2 opacity-60">{product.price}$</h1>
                 </div>
               </h1>
               <div className="flex  flex-row justify-between">
@@ -35,14 +64,12 @@ console.log(cartItems)
                 />
                 <div className="flex flex-col ">
                   <div className="flex flex-row justify-around">
-
-                <h1 className="mr-2">Quantity:</h1>
-                <h1>{product.quantity}</h1>
+                    <h1 className="mr-2">Quantity:</h1>
+                    <h1>{product.quantity}</h1>
                   </div>
-                <h1>${product.quantity * product.price}</h1>
+                  <h1>${product.quantity * product.price}</h1>
                 </div>
               </div>
-            
             </div>
           ))}
 
@@ -62,7 +89,10 @@ console.log(cartItems)
                   View Cart
                 </button>
               </Link>
-              <button className="rounded-sm py-3 px-4 bg-black text-white ring-1 ring-gray-300">
+              <button
+                onClick={handleCheckout}
+                className="rounded-sm py-3 px-4 bg-black text-white ring-1 ring-gray-300"
+              >
                 Checkout
               </button>
             </div>
