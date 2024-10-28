@@ -25,7 +25,6 @@ export interface Category {
     additionalInfoSections?: AdditionalInfoSection[]; 
   }
 
-  export interface Product extends Omit<CartItem, 'quantity'> {}
   
   export interface CartContextType {
     totalPrice: number;
