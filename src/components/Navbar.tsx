@@ -4,12 +4,6 @@ import Menu from "./Menu";
 import SearchBar from "./SearchBar";
 import NavIcons from "./NavIcons";
 import { baronNeue } from "@/app/layout";
-import { Nunito_Sans } from 'next/font/google';
-
-const nunitoSans = Nunito_Sans({
-  weight: ['400', '500', '600'], 
-  subsets: ['latin'],
-});
 
 function Navbar() {
   return (
@@ -29,7 +23,7 @@ function Navbar() {
               BAHU
             </h1>
           </Link>
-          <div className={`hidden xl:flex gap-6 ${nunitoSans.className}`}>
+          <div className="hidden xl:flex gap-6">
             <Link href={"/list/"}>Shop</Link>
             <Link href={"/tamo"}>Deals</Link>
             <Link href={"/tamo"}>About</Link>

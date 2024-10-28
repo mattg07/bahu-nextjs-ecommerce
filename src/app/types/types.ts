@@ -10,8 +10,8 @@ export interface Category {
   }
   
   export interface Product {
-    filter(arg0: (product: Product) => boolean): any;
-    length: any;
+    filter(arg0: (product: Product) => boolean): number;
+    length: number;
     _id: string;
     name: string;
     slug: {

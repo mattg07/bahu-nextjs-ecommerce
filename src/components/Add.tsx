@@ -10,7 +10,7 @@ function Add({product} : {product:Product}) {
     throw new Error("CartContext must be used within a CartProvider");
   }
   
-  const { cartItems, addProduct, qty, incQty, decQty } = cartContext;
+  const { addProduct, qty, incQty, decQty } = cartContext;
 
   return (
     <div className=''>
