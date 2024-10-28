@@ -5,7 +5,7 @@ import Link from "next/link";
 import { CartContext } from "@/app/context/CartContext";
 import { useContext } from "react";
 import { urlFor } from "@/sanity/lib/image";
-import { Product } from "@/app/types/types";
+import { CartItem, Product } from "@/app/types/types";
 function CartModal() {
   interface ProductsToSend {
     name: string;
@@ -23,7 +23,7 @@ function CartModal() {
   console.log(cartItems);
 
   const handleCheckout = async () => {
-    const productsToSend: ProductsToSend[] = cartItems.map((product: Product) => ({
+    const productsToSend: ProductsToSend[] = cartItems.map((product: CartItem) => ({
       name: product.name,
       price: product.price,
       images: product.images.map((image) => image.url),
@@ -52,7 +52,7 @@ function CartModal() {
         <div>Cart is empty</div>
       ) : (
         <>
-          {cartItems.map((product: Product, index: number) => (
+          {cartItems.map((product: CartItem, index: number) => (
             <div key={index} className="text-black flex flex-col ">
               <h1 className="overflow-hidden h-8">
                 <div className="flex flex-row items-center ">
