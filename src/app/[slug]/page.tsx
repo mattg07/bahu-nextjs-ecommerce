@@ -16,7 +16,7 @@ async function Page({ params }: { params: { slug: string } }) {
         name
       }
     }`,
-    { slug: params.slug }
+    { slug: params.slug }, { next: { revalidate: 3000 } }
   );
 
   if (!product) {
@@ -38,16 +38,19 @@ async function Page({ params }: { params: { slug: string } }) {
           <p className="text-gray-900">{product.description}</p>
           <div className="flex flex-col gap-2">
             <h2 className="font-medium text-2xl">${product.price}</h2>
-            <h4 className="text-gray-500">Tax included. <br /> Shipping calculated at checkout.</h4>
+            <h4 className="text-gray-500">
+              Tax included. <br /> Shipping calculated at checkout.
+            </h4>
           </div>
           {/* Display category names */}
           <div className="text-gray-700">
-            {product.categories.map((category: any) => (
-              <span key={category._id} className="mr-2">
+            {product.categories.map((category: any, i:number) => (
+              <span key={i} className="mr-2">
                 <h2>Category: {category.name}</h2>
               </span>
             ))}
           </div>
+
           <div className="h-[2px] bg-gray-100" />
           <div className="flex flex-col">
             <Add product={product} />
@@ -72,4 +75,3 @@ async function Page({ params }: { params: { slug: string } }) {
 }
 
 export default Page;
-  

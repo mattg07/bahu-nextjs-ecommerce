@@ -11,7 +11,6 @@ function ProductDisplay({products} : {products:any}) {
 
     const searchTerm = useStore(state => state.searchTerm);
 
-    // memoize the filtered products based on searchTerm
     const filteredProducts = useMemo(() => {
       return products.filter((product: any) =>
         product.name.toLowerCase().includes(searchTerm.toLowerCase())

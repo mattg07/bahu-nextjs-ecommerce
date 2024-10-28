@@ -14,7 +14,7 @@ async function CategoryList() {
         {categories.map((category : any, index: number) => (
           <Link
             key={index}
-            href={`/${category.name.toLowerCase()}`}
+            href={`/categories/${category.name.toLowerCase()}`}
             className="flex-shrink-0 w-full sm:w-1/2 lg:w-1/4 xl:w-1/6"
           >
             <div className="relative bg-slate-100 w-full h-48 sm:h-64 lg:h-80 xl:h-96">

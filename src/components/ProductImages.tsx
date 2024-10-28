@@ -8,7 +8,7 @@ const ProductImages = ({ items }: { items: string[] }) => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="h-[420px] w-[350px] relative ">
+      <div className="h-[420px] w-[390px] relative ">
         <Image
           src={items[index]}
           alt={`Product Image ${index + 1}`}
