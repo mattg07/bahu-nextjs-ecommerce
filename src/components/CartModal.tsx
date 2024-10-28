@@ -5,7 +5,7 @@ import Link from "next/link";
 import { CartContext } from "@/app/context/CartContext";
 import { useContext } from "react";
 import { urlFor } from "@/sanity/lib/image";
-import { CartItem, Product } from "@/app/types/types";
+import { CartItem } from "@/app/types/types";
 function CartModal() {
   interface ProductsToSend {
     name: string;
