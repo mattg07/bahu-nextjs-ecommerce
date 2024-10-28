@@ -4,6 +4,7 @@ import Image from "next/image";
 import { groq } from "next-sanity";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
+import { Category } from "@/app/types/types";
 async function CategoryList() {
   const categories = await client.fetch(groq`*[_type == "category"]{name, images}`, {}, { next: {revalidate: 10}});
   console.log(categories);
@@ -11,7 +12,7 @@ async function CategoryList() {
   return (
     <div className="px-4 overflow-x-scroll scrollbar-hide mt-8">
       <div className="flex gap-4 md:gap-8">
-        {categories.map((category : any, index: number) => (
+        {categories.map((category : Category, index: number) => (
           <Link
             key={index}
             href={`/categories/${category.name.toLowerCase()}`}

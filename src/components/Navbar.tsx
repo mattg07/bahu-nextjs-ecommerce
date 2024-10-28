@@ -1,14 +1,11 @@
 
 import Link from "next/link";
-import React, { useContext } from "react";
-import { CartContext } from "@/app/context/CartContext";
+import React from "react";
 import Menu from "./Menu";
 import SearchBar from "./SearchBar";
 import NavIcons from "./NavIcons";
-import Image from "next/image";
 import { baronNeue } from "@/app/layout";
 import { Nunito_Sans} from 'next/font/google'
-import { useSession } from "next-auth/react";
 const nunitoSans = Nunito_Sans({
   weight: [ '500'],
   subsets: ['latin'],

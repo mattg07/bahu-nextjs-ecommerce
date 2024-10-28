@@ -6,13 +6,14 @@ import { urlFor } from '@/sanity/lib/image';
 import AddToCartBtn from './AddToCartBtn';
 import { useStore } from '@/app/useStore';
 import { useMemo } from 'react';
+import { Product } from '@/app/types/types';
 function ProductDisplay({products} : {products:any}) {
 
 
     const searchTerm = useStore(state => state.searchTerm);
 
     const filteredProducts = useMemo(() => {
-      return products.filter((product: any) =>
+      return products.filter((product: Product) =>
         product.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }, [products, searchTerm]);
@@ -21,7 +22,7 @@ function ProductDisplay({products} : {products:any}) {
 
   return (
     <div className="mt-12 flex gap-x-8 gap-y-16 justify-between flex-wrap">
-      {filteredProducts.map((product : any) => (
+      {filteredProducts.map((product : Product) => (
         <Link
           href={`/${product.slug.current}`}
           className="w-full flex flex-col gap-4 sm:w-[45%] lg:w-[22%]"

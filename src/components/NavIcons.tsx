@@ -17,7 +17,7 @@ function NavIcons({}) {
     }
     setIsProfileOpen((prev) => !prev);
   };
-  const { qty, cartItems, totalQty }: any = useContext(CartContext);
+  const {totalQty }: any = useContext(CartContext);
 
   const { data: session } = useSession();
   console.log(session);
