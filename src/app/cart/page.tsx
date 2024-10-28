@@ -6,7 +6,7 @@ import { urlFor } from "@/sanity/lib/image";
 
 import Image from "next/image";
 import Link from "next/link";
-import { CartContextType, CartItem, Product } from "../types/types";
+import { CartContextType, CartItem} from "../types/types";
 function Cart() {
   const { totalPrice, cartItems } = useContext(CartContext) as CartContextType;
 
