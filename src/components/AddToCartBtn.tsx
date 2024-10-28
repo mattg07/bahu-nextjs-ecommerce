@@ -2,10 +2,16 @@
 import React from 'react'
 import { useContext } from 'react';
 import { CartContext } from '@/app/context/CartContext';
+import { Product } from '@/app/types/types';
 
-function AddToCartBtn({product} : {product:any}) {
-    const {cartItems, addProduct, qty, incQty, decQty}:any = useContext(CartContext)
+function AddToCartBtn({product} : {product:Product}) {
+  const cartContext = useContext(CartContext);
 
+  if (!cartContext) {
+    throw new Error("CartContext must be used within a CartProvider");
+  }
+  
+  const {  addProduct } = cartContext;
   return (
     <button 
     onClick={() => addProduct(product, 1)}

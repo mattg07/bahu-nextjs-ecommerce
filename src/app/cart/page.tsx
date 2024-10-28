@@ -2,21 +2,14 @@
 import React from "react";
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
-import { product } from "@/sanity/schemas/productSchema";
 import { urlFor } from "@/sanity/lib/image";
 
 import Image from "next/image";
 import Link from "next/link";
+import { CartContextType, Product } from "../types/types";
 function Cart() {
-  const {
-    totalPrice,
-    cartItems,
-    qty,
-    decQty,
-    incQty,
-    showCart,
-    setShowCart,
-  }: any = useContext(CartContext);
+  const { totalPrice, cartItems } = useContext(CartContext) as CartContextType;
+
   return (
     <div className="border flex items-center justify-center py-5">
       <div className=" w-4/5">
@@ -37,7 +30,7 @@ function Cart() {
           </tr>
         </thead>
         <tbody>
-          {cartItems.map((product:any, index:number) => (
+          {cartItems.map((product:Product, index:number) => (
             <tr key={index}>
               <td className="py-2 px-4 border-b border-gray-200">
                 <div className="flex items-center">

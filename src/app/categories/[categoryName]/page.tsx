@@ -4,6 +4,7 @@ import React from "react";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import Link from "next/link";
+import { Category, Product } from "@/app/types/types";
 async function SingleCategory({
   params,
 }: {
@@ -27,9 +28,9 @@ async function SingleCategory({
 
   console.log("Fetched products:", products);
 
-  const filteredProducts = products.filter((product: any) =>
+  const filteredProducts = products.filter((product: Product) =>
     product.categories.some(
-      (cat: any) => cat.name.toLowerCase() === categoryName.toLowerCase()
+      (cat: Category) => cat.name.toLowerCase() === categoryName.toLowerCase()
     )
   );
 
@@ -43,7 +44,7 @@ async function SingleCategory({
       <div></div>
       {filteredProducts.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {filteredProducts.map((product: any) => (
+          {filteredProducts.map((product: Product) => (
             <Link href={`/${product.slug.current}`} key={product._id}>
               <div className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
                 <Image
@@ -57,7 +58,7 @@ async function SingleCategory({
                   <h2 className="text-lg font-semibold">{product.name}</h2>
                   <p>
                     Categories:{" "}
-                    {product.categories.map((cat: any) => cat.name).join(", ")}
+                    {product.categories.map((cat: Category) => cat.name).join(", ")}
                   </p>
                 </div>
               </div>

@@ -1,7 +1,4 @@
 "use client";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 
 function ErrorPage() {
@@ -15,7 +12,7 @@ function ErrorPage() {
       </div>
       <h2 className="text-2xl font-bold text-red-600">Payment Unsuccessful</h2>
       <p className="text-gray-600">
-        We're sorry, but we couldn't process your payment. Please review the
+        We are sorry, but we couldn't process your payment. Please review the
         details and try again.
       </p>
     </header>

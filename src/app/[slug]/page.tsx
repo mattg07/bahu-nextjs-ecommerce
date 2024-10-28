@@ -1,12 +1,11 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import Image from "next/image";
-import { groq } from "next-sanity";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import ProductImages from "@/components/ProductImages";
 import Add from "@/components/Add";
+import { Category } from "../types/types";
 
 async function Page({ params }: { params: { slug: string } }) {
   const product = await client.fetch(
@@ -23,7 +22,7 @@ async function Page({ params }: { params: { slug: string } }) {
     notFound();
   }
 
-  const imageUrls = product.images.map((image: any) => urlFor(image).url());
+  const imageUrls = product.images.map((image: string) => urlFor(image).url());
 
   return (
     <div className="border border-white py-2 bg-gray-50 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative flex flex-col lg:flex-row gap-16">
@@ -44,7 +43,7 @@ async function Page({ params }: { params: { slug: string } }) {
           </div>
           {/* Display category names */}
           <div className="text-gray-700">
-            {product.categories.map((category: any, i:number) => (
+            {product.categories.map((category: Category, i:number) => (
               <span key={i} className="mr-2">
                 <h2>Category: {category.name}</h2>
               </span>
@@ -56,12 +55,7 @@ async function Page({ params }: { params: { slug: string } }) {
             <Add product={product} />
           </div>
           <div className="h-[2px] bg-gray-100" />
-          {product.additionalInfoSections?.map((section: any) => (
-            <div className="text-sm" key={section.title}>
-              <h4 className="font-medium mb-4">{section.title}</h4>
-              <p>{section.description}</p>
-            </div>
-          ))}
+        
           <div className="h-[2px] bg-gray-100" />
           {/* REVIEWS */}
           <h1 className="text-2xl">User Reviews</h1>

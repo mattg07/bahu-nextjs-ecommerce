@@ -1,3 +1,4 @@
+import { Product } from "@/app/types/types";
 import { NextResponse } from "next/server";
 
 interface StripeProduct {
@@ -5,7 +6,7 @@ interface StripeProduct {
   quantity: number;
 }
 
-export const POST = async (request: any) => {
+export const POST = async (request: Request) => {
   const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
   const { products } = await request.json();
@@ -40,7 +41,7 @@ export const POST = async (request: any) => {
   
   for (const product of products) {
     const matchedProduct = activeProducts?.data.find(
-      (stripeProduct: any) =>
+      (stripeProduct: Product) =>
         stripeProduct.name.toLowerCase() === product.name.toLowerCase()
     );
 

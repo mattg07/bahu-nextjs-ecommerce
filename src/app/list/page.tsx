@@ -3,8 +3,6 @@ import Filter from '@/components/Filter'
 import ProductList from '@/components/ProductList'
 import Image from 'next/image'
 import React from 'react'
-import { groq } from 'next-sanity'
-import { client } from '@/sanity/lib/client'
 import { motion } from "framer-motion"
  function List() {
 

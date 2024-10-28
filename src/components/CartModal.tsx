@@ -5,7 +5,7 @@ import Link from "next/link";
 import { CartContext } from "@/app/context/CartContext";
 import { useContext } from "react";
 import { urlFor } from "@/sanity/lib/image";
-import image from "next/image";
+import { Product } from "@/app/types/types";
 function CartModal() {
   interface ProductsToSend {
     name: string;
@@ -13,15 +13,20 @@ function CartModal() {
     images: string[];
     quantity: number;
   }
-  const { totalPrice, cartItems, qty, showCart, setShowCart }: any =
-    useContext(CartContext);
+  const cartContext = useContext(CartContext);
+
+  if (!cartContext) {
+    throw new Error("CartContext must be used within a CartProvider");
+  }
+  
+  const { cartItems, totalPrice} = cartContext;
   console.log(cartItems);
 
   const handleCheckout = async () => {
-    const productsToSend: ProductsToSend[] = cartItems.map((product: any) => ({
+    const productsToSend: ProductsToSend[] = cartItems.map((product: Product) => ({
       name: product.name,
       price: product.price,
-      images: product.images.map((image: string) => urlFor(image).url()),
+      images: product.images.map((image) => image.url),
       quantity: product.quantity,
     }));
   
