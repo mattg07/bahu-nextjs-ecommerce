@@ -1,9 +1,8 @@
 "use client";
 import React from 'react';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 
 function Login() {
-  const {data : Session} = useSession();
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">

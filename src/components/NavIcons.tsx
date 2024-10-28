@@ -17,7 +17,13 @@ function NavIcons({}) {
     }
     setIsProfileOpen((prev) => !prev);
   };
-  const {totalQty }: any = useContext(CartContext);
+  const cartContext = useContext(CartContext);
+
+  if (!cartContext) {
+    throw new Error("CartContext must be used within a CartProvider");
+  }
+  
+  const { totalQty } = cartContext;
 
   const { data: session } = useSession();
   console.log(session);

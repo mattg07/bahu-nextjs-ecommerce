@@ -1,32 +1,32 @@
-import { Product } from "@/app/types/types";
 import { NextResponse } from "next/server";
-
 interface StripeProduct {
-  price: string; 
-  quantity: number;
+  id: string;
+  name: string; 
+  default_price: string ;
+  quantity?: number;
 }
 
 export const POST = async (request: Request) => {
-  const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+  const stripeModule = await import("stripe");
+  const stripe = new stripeModule.default(process.env.STRIPE_SECRET_KEY!);
 
   const { products } = await request.json();
   let activeProducts = await stripe.products.list({ active: true });
 
   try {
     for (const product of products) {
-      const matchedProducts = activeProducts?.data?.find(
-        (stripeProduct: any) =>
-          stripeProduct.name.toLowerCase() === product.name.toLowerCase()
+      const matchedProduct = activeProducts?.data.find(
+        (stripeProduct) => stripeProduct.name.toLowerCase() === product.name.toLowerCase()
       );
 
-      if (matchedProducts === undefined) {
+      if (!matchedProduct) {
         await stripe.products.create({
           name: product.name,
           default_price_data: {
             currency: "usd",
-            unit_amount: Math.round(product.price * 100), 
+            unit_amount: Math.round(product.price * 100),
           },
-          images: product.images, 
+          images: product.images,
         });
       }
     }
@@ -36,26 +36,29 @@ export const POST = async (request: Request) => {
   }
 
   activeProducts = await stripe.products.list({ active: true });
-  
+
   const stripeProducts: StripeProduct[] = [];
-  
+
   for (const product of products) {
     const matchedProduct = activeProducts?.data.find(
-      (stripeProduct: Product) =>
+      (stripeProduct) =>
         stripeProduct.name.toLowerCase() === product.name.toLowerCase()
     );
 
     if (matchedProduct && matchedProduct.default_price) {
       stripeProducts.push({
-        price: matchedProduct.default_price,
-        quantity: product.quantity,
-
+        id: matchedProduct.id, 
+        name: matchedProduct.name, 
+        default_price: matchedProduct.default_price as string, 
       });
     }
   }
 
   const session = await stripe.checkout.sessions.create({
-    line_items: stripeProducts,
+    line_items: stripeProducts.map((product) => ({
+      price: product.default_price, 
+      quantity: product.quantity, 
+    })),
     mode: "payment",
     success_url: `http://localhost:3000/success`,
     cancel_url: `http://localhost:3000/`,

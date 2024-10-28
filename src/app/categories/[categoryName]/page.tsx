@@ -75,15 +75,12 @@ async function SingleCategory({
           </div>
           <div>
             <p className="text-muted-foreground mb-4">
-              We couldn't find any products in this category. This might be
+              We could not find any products in this category. This might be
               because:
             </p>
             <ul className="text-sm text-muted-foreground list-disc list-inside mb-4">
               <li>The category is currently empty</li>
               <li>All products in this category are out of stock</li>
-              <li>
-                There might be a filter applied that's excluding all products
-              </li>
             </ul>
           </div>
         </div>

@@ -52,7 +52,7 @@ function CartModal() {
         <div>Cart is empty</div>
       ) : (
         <>
-          {cartItems.map((product: any, index: number) => (
+          {cartItems.map((product: Product, index: number) => (
             <div key={index} className="text-black flex flex-col ">
               <h1 className="overflow-hidden h-8">
                 <div className="flex flex-row items-center ">

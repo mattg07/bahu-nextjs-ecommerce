@@ -10,6 +10,8 @@ export interface Category {
   }
   
   export interface Product {
+    filter(arg0: (product: Product) => boolean): any;
+    length: any;
     _id: string;
     name: string;
     slug: {
@@ -18,9 +20,9 @@ export interface Category {
     description: string;
     quantity: number;
     price: number;
-    images: { _key: string; url: string }[]; // Assumes each image has a unique _key and a URL
-    categories: Category[]; // Array of Category objects
-    additionalInfoSections?: AdditionalInfoSection[]; // Optional array of additional info sections
+    images: { _key: string; url: string }[];
+    categories: Category[]; 
+    additionalInfoSections?: AdditionalInfoSection[]; 
   }
 
   export interface Product extends Omit<CartItem, 'quantity'> {}
@@ -40,8 +42,8 @@ export interface Category {
     _id: string;
     price: number;
     quantity: number;
-    categories: Category[]; // Array of Category objects
-    images: { _key: string; url: string }[]; // Assumes each image has a unique _key and a URL
+    categories: Category[]; 
+    images: { _key: string; url: string }[]; 
     name: string;
     slug: {
       current: string;

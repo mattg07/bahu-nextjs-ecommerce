@@ -7,7 +7,7 @@ import AddToCartBtn from './AddToCartBtn';
 import { useStore } from '@/app/useStore';
 import { useMemo } from 'react';
 import { Product } from '@/app/types/types';
-function ProductDisplay({products} : {products:any}) {
+function ProductDisplay({products} : {products:Product}) {
 
 
     const searchTerm = useStore(state => state.searchTerm);
