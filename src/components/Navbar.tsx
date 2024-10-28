@@ -24,10 +24,9 @@ function Navbar() {
             </h1>
           </Link>
           <div className="hidden xl:flex gap-6">
-            <Link href={"/list/"}>Shop</Link>
-            <Link href={"/tamo"}>Deals</Link>
-            <Link href={"/tamo"}>About</Link>
-            <Link href={"/tamo"}>Contact</Link>
+            <Link href="/list/">Shop</Link>
+            <Link href="/about">About</Link>
+            <Link href="/contact">Contact</Link>
           </div>
         </div>
         <div className="w-2/3 xl:w-1/2 flex items-center justify-between gap-8">
