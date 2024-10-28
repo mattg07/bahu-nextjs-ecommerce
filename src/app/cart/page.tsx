@@ -6,7 +6,7 @@ import { urlFor } from "@/sanity/lib/image";
 
 import Image from "next/image";
 import Link from "next/link";
-import { CartContextType, Product } from "../types/types";
+import { CartContextType, CartItem, Product } from "../types/types";
 function Cart() {
   const { totalPrice, cartItems } = useContext(CartContext) as CartContextType;
 
@@ -30,7 +30,7 @@ function Cart() {
           </tr>
         </thead>
         <tbody>
-          {cartItems.map((product:Product, index:number) => (
+          {cartItems.map((product:CartItem, index:number) => (
             <tr key={index}>
               <td className="py-2 px-4 border-b border-gray-200">
                 <div className="flex items-center">
