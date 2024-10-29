@@ -60,8 +60,8 @@ export const POST = async (request: Request) => {
       quantity: product.quantity, 
     })),
     mode: "payment",
-    success_url: `http://localhost:3000/success`,
-    cancel_url: `http://localhost:3000/`,
+    success_url: `https://bahu-nextjs-ecommerce-fanu.vercel.app/success`,
+    cancel_url: `https://bahu-nextjs-ecommerce-fanu.vercel.app/`,
   });
 
   return NextResponse.json({
