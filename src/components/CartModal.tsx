@@ -18,27 +18,33 @@ function CartModal() {
   if (!cartContext) {
     throw new Error("CartContext must be used within a CartProvider");
   }
-  
-  const { cartItems, totalPrice} = cartContext;
+
+  const { cartItems, totalPrice } = cartContext;
   console.log(cartItems);
 
   const handleCheckout = async () => {
-    const productsToSend: ProductsToSend[] = cartItems.map((product: CartItem) => ({
-      name: product.name,
-      price: product.price,
-      images: product.images.map((image) => image.url),
-      quantity: product.quantity,
-    }));
-  
+    const productsToSend: ProductsToSend[] = cartItems.map(
+      (product: CartItem) => ({
+        name: product.name,
+        price: product.price,
+        images: product.images.map((image) => image.url),
+        quantity: product.quantity,
+      })
+    );
+
     try {
       const response = await fetch("/api/checkout", {
         method: "POST",
-  headers: { "Content-Type": "application/json" }, // Fixed the Content-Type header
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": "true",
+        },
         body: JSON.stringify({ products: productsToSend }),
       });
       const data = await response.json();
-      if(data.url){
-        window.location.href = data.url
+      if (data.url) {
+        window.location.href = data.url;
       }
     } catch (error) {
       console.log("Error during checkout", error);
