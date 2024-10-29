@@ -6,8 +6,44 @@ import { urlFor } from "@/sanity/lib/image";
 import ProductImages from "@/components/ProductImages";
 import Add from "@/components/Add";
 import { Category } from "../types/types";
+import { Metadata, ResolvingMetadata } from "next";
 
-async function Page({ params }: { params: { slug: string } }) {
+type Props = {
+  params: {slug : string};
+
+}
+export async function generateMetadata(
+  { params}: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
+  const id = (await params).slug
+ 
+  // fetch data
+  const product = await client.fetch(
+    `*[_type == "product" && slug.current == $slug][0] {
+      ...,
+      categories[]-> {
+        name
+      }
+    }`,
+    { slug: params.slug }, { next: { revalidate: 3000 } }
+  );
+  
+  if (!product) {
+    return {title:"", description: ""}
+  }
+
+ 
+
+  return {
+    title: product.name,
+    description: product.description,
+    openGraph: {
+    },
+  }
+}
+async function Page({ params }: Props ) {
   const product = await client.fetch(
     `*[_type == "product" && slug.current == $slug][0] {
       ...,
@@ -23,6 +59,10 @@ async function Page({ params }: { params: { slug: string } }) {
   }
 
   const imageUrls = product.images.map((image: string) => urlFor(image).url());
+
+ 
+
+
 
   return (
     <div className="border border-white py-2 bg-gray-50 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative flex flex-col lg:flex-row gap-16">

@@ -32,7 +32,7 @@ function SuccessPage() {
   }, []);
 
   return (
-    <div className="flex items-center justify-center py-20 ">
+    <div className="flex items-center justify-center py-32 ">
       <div className="flex flex-col items-center gap-5">
         <motion.h1
           className="text-3xl font-semibold"

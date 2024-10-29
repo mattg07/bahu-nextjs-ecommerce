@@ -38,9 +38,7 @@ async function SingleCategory({
 
   return (
     <div className="flex flex-col items-center justify-center py-10">
-      <h1 className="text-3xl font-bold mb-4">
-        {categoryName.charAt(0).toUpperCase() + categoryName.slice(1)}
-      </h1>
+ 
       <div></div>
       {filteredProducts.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -66,7 +64,7 @@ async function SingleCategory({
           ))}
         </div>
       ) : (
-        <div className="px-5">
+        <div className="px-5 py-20">
           <div className="w-20 h-20 mx-auto mb-4 rounded-full  bg-gray-100 flex items-center justify-center">
             <PackageSearch className="h-10 w-10 text-gray-400" />
           </div>

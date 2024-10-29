@@ -6,13 +6,9 @@ import { CartContext } from "@/app/context/CartContext";
 import { useContext } from "react";
 import { urlFor } from "@/sanity/lib/image";
 import { CartItem } from "@/app/types/types";
+import CheckoutBtn from "./CheckoutBtn";
 function CartModal() {
-  interface ProductsToSend {
-    name: string;
-    price: number;
-    images: string[];
-    quantity: number;
-  }
+
   const cartContext = useContext(CartContext);
 
   if (!cartContext) {
@@ -22,36 +18,7 @@ function CartModal() {
   const { cartItems, totalPrice } = cartContext;
   console.log(cartItems);
 
-  const handleCheckout = async () => {
-    const productsToSend: ProductsToSend[] = cartItems.map(
-      (product: CartItem) => ({
-        name: product.name,
-        price: product.price,
-        images: product.images.map((image) => image.url),
-        quantity: product.quantity,
-      })
-    );
-
-    try {
-      const response = await fetch("/api/checkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Credentials": "true",
-        },
-        body: JSON.stringify({ products: productsToSend }),
-      });
-      const data = await response.json();
-      if (data.url) {
-        window.location.href = data.url;
-      }
-    } catch (error) {
-      console.log("Error during checkout", error);
-      throw error;
-    }
-  };
-
+ 
   return (
     <div className="w-max absolute p-4 rounded-md shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white top-12 right-0 flex flex-col gap-6 z-20 ">
       {!cartItems || cartItems.length === 0 ? (
@@ -100,12 +67,7 @@ function CartModal() {
                   View Cart
                 </button>
               </Link>
-              <button
-                onClick={handleCheckout}
-                className="rounded-sm py-3 px-4 bg-black text-white ring-1 ring-gray-300"
-              >
-                Checkout
-              </button>
+            <CheckoutBtn/>
             </div>
           </div>
         </>
