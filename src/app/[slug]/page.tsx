@@ -6,7 +6,7 @@ import { urlFor } from "@/sanity/lib/image";
 import ProductImages from "@/components/ProductImages";
 import Add from "@/components/Add";
 import { Category } from "../types/types";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 
 type Props = {
   params: {slug : string};
