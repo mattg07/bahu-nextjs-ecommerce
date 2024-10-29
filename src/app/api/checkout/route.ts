@@ -3,7 +3,7 @@ interface StripeProduct {
   id: string;
   name: string; 
   default_price: string ;
-  quantity?: number;
+  quantity: number;
 }
 
 export const POST = async (request: Request) => {
@@ -50,6 +50,8 @@ export const POST = async (request: Request) => {
         id: matchedProduct.id, 
         name: matchedProduct.name, 
         default_price: matchedProduct.default_price as string, 
+        quantity: product.quantity ?? 1,
+
       });
     }
   }
