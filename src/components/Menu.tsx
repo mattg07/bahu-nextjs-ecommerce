@@ -2,7 +2,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import CartModal from "./CartModal";
 import NavIcons from "./NavIcons";
 
 function Menu() {

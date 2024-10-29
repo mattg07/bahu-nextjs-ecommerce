@@ -14,12 +14,8 @@ type Props = {
 }
 export async function generateMetadata(
   { params}: Props,
-  parent: ResolvingMetadata
 ): Promise<Metadata> {
-  // read route params
-  const id = (await params).slug
- 
-  // fetch data
+
   const product = await client.fetch(
     `*[_type == "product" && slug.current == $slug][0] {
       ...,
