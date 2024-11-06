@@ -5,7 +5,7 @@ import ProductImages from "@/components/ProductImages";
 import Add from "@/components/Add";
 import { Category } from "../types/types";
 import Link from "next/link";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 type Props = {
   params: { slug: string };
 };
