@@ -1,5 +1,7 @@
 import React from "react";
-
+export const metadata = {
+  title: "About Us",
+}
 function About() {
   return (
     <div className="container mx-auto p-8 w-2/4">

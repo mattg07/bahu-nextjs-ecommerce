@@ -1,6 +1,10 @@
 import React from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
 
+export const metadata = {
+  title: "Contact",
+}
+
 function ContactPage() {
   return (
     <div className="container mx-auto p-8">

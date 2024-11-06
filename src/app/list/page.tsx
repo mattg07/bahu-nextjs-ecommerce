@@ -4,6 +4,9 @@ import ProductList from '@/components/ProductList'
 import Image from 'next/image'
 import React from 'react'
 import { motion } from "framer-motion"
+
+
+
  function List() {
 
   const variants = {

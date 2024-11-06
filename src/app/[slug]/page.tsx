@@ -1,21 +1,15 @@
 import React from "react";
-import { notFound } from "next/navigation";
-import { Suspense } from "react";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import ProductImages from "@/components/ProductImages";
 import Add from "@/components/Add";
 import { Category } from "../types/types";
+import Link from "next/link";
 import { Metadata } from "next";
-
 type Props = {
-  params: {slug : string};
-
-}
-export async function generateMetadata(
-  { params}: Props,
-): Promise<Metadata> {
-
+  params: { slug: string };
+};
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const product = await client.fetch(
     `*[_type == "product" && slug.current == $slug][0] {
       ...,
@@ -23,23 +17,21 @@ export async function generateMetadata(
         name
       }
     }`,
-    { slug: params.slug }, { next: { revalidate: 3000 } }
+    { slug: params.slug },
+    { next: { revalidate: 3000 } }
   );
-  
-  if (!product) {
-    return {title:"", description: ""}
-  }
 
- 
+  if (!product) {
+    return { title: "", description: "" };
+  }
 
   return {
     title: product.name,
     description: product.description,
-    openGraph: {
-    },
-  }
+    openGraph: {},
+  };
 }
-async function Page({ params }: Props ) {
+async function Page({ params }: Props) {
   const product = await client.fetch(
     `*[_type == "product" && slug.current == $slug][0] {
       ...,
@@ -47,18 +39,22 @@ async function Page({ params }: Props ) {
         name
       }
     }`,
-    { slug: params.slug }, { next: { revalidate: 3000 } }
+    { slug: params.slug },
+    { next: { revalidate: 3000 } }
   );
 
   if (!product) {
-    notFound();
+    return (
+      <div className="flex flex-col items-center justify-center gap-8 py-10">
+        <h1 className="text-xl">Could not find any products with that slug</h1>
+       <Link href="/">
+        <button className="w-36 h-8 rounded-md bg-orange-400">Continue Shopping</button>
+       </Link>
+      </div>
+    );
   }
 
   const imageUrls = product.images.map((image: string) => urlFor(image).url());
-
- 
-
-
 
   return (
     <div className="border border-white py-2 bg-gray-50 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative flex flex-col lg:flex-row gap-16">
@@ -79,7 +75,7 @@ async function Page({ params }: Props ) {
           </div>
           {/* Display category names */}
           <div className="text-gray-700">
-            {product.categories.map((category: Category, i:number) => (
+            {product.categories.map((category: Category, i: number) => (
               <span key={i} className="mr-2">
                 <h2>Category: {category.name}</h2>
               </span>
@@ -91,13 +87,8 @@ async function Page({ params }: Props ) {
             <Add product={product} />
           </div>
           <div className="h-[2px] bg-gray-100" />
-        
-          <div className="h-[2px] bg-gray-100" />
-          {/* REVIEWS */}
-          <h1 className="text-2xl">User Reviews</h1>
-          <Suspense fallback="Loading...">
-            {/* Add Reviews component here */}
-          </Suspense>
+
+  
         </div>
       </div>
     </div>

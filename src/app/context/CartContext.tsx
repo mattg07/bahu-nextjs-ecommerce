@@ -36,7 +36,6 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     }
 
     setQty(1);
-    alert("Product added to cart");
   };
 
   return (
